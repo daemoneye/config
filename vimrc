@@ -24,12 +24,18 @@ set ttyfast
 set splitbelow
 set splitright
 set history=1000
+set undolevels=1000
+set title
+set visualbell
+set noerrorbells
 set confirm
 set number
 set ruler
 set mouse=a
 
 noremap <space> :nohlsearch<CR>
+nnoremap j gj
+nnoremap k gk
 
 set laststatus=2
 
