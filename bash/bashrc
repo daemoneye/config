@@ -19,7 +19,8 @@ export PURPLE="\e[1;35m"
 export CYAN="\e[1;36m"
 export WHITE="\e[1;37m"
 
-export PS1="$PURPLE(\d:\A) $GREEN(\u@\H) $RED\$PWD> $WHITE"
+export PS1="$PURPLE(\d:\A) $GREEN(\u@\H) $BLUE\$PWD> $WHITE"
+export PS2="$RED[*]Continue>"
 export PATH=$PATH:/home/daemoneye/bin
 export LESS="-iMFXR"
 export EDITOR=vim
