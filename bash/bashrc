@@ -1,0 +1,95 @@
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+function git_branch {
+	local git_status="$(git status 2> /dev/null)"
+	local on_branch="On branch ([^${IFS}]*)"
+	local on_commit="HEAD detached at ([^${IFS}]*)"
+
+	if [[ $git_status =~ $on_branch ]]; then
+		local branch=${BASH_REMATCH[1]}
+		echo "($branch)"
+	elif [[ $git_status =~ $on_commit ]]; then
+		local commit=${BASH_REMATCH[1]}
+		echo "($commit)"
+	fi
+}
+
+export BLACK="\e[1;30m"
+export RED="\e[1;31m"
+export GREEN="\e[1;32m"
+export BROWN="\e[1;33m"
+export BLUE="\e[1;34m"
+export PURPLE="\e[1;35m"
+export CYAN="\e[1;36m"
+export WHITE="\e[1;37m"
+
+export PS1="$PURPLE(\d:\A) $GREEN(\u@\H) $CYAN\$(git_branch) $RED\W> $BROWN"
+export PATH=$PATH:/home/daemoneye/bin
+export LESS="-iMFXR"
+export EDITOR=vim
+
+shopt -s cdspell
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+alias ll='ls -l'
+alias mv='mv -i'
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+if [ -f ~/bin/networking.sh ]; then
+	~/bin/networking.sh
+fi
+
+extract () {
+   if [ -f $1 ] ; then
+       case $1 in
+           *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.gz)    tar xvzf $1    ;;
+           *.bz2)       bunzip2 $1     ;;
+           *.rar)       unrar x $1       ;;
+           *.gz)        gunzip $1      ;;
+           *.tar)       tar xvf $1     ;;
+           *.tbz2)      tar xvjf $1    ;;
+           *.tgz)       tar xvzf $1    ;;
+           *.zip)       unzip $1       ;;
+           *.Z)         uncompress $1  ;;
+           *.7z)        7z x $1        ;;
+           *)           echo "don't know how to extract '$1'..." ;;
+       esac
+   else
+       echo "'$1' is not a valid file!"
+   fi
+}
+
+parse_git_branch() {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+mkcd() {
+	if [ $# != 1 ]; then
+		echo "Usage: mkcd <dir>"
+	else
+		mkdir -p $1 && cd $1
+	fi
+}

@@ -1,0 +1,1 @@
+alias largest="du -S | sort -nr | head -n 15"
