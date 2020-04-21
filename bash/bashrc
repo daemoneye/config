@@ -33,7 +33,7 @@ export PURPLE="\e[1;35m"
 export CYAN="\e[1;36m"
 export WHITE="\e[1;37m"
 
-export PS1="$PURPLE(\d:\A) $GREEN(\u@\H) $CYAN\$(git_branch) $RED\W> $BROWN"
+export PS1="$PURPLE(\d:\A) $GREEN(\u@\H) $CYAN\$(git_branch) $RED\$PWD> $WHITE"
 export PATH=$PATH:/home/daemoneye/bin
 export LESS="-iMFXR"
 export EDITOR=vim
@@ -79,3 +79,18 @@ mkcd() {
 		mkdir -p $1 && cd $1
 	fi
 }
+
+alias largest="du -S | sort -nr | head -n 15"
+alias ll='ls -l'
+alias mv='mv -i'
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
