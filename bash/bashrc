@@ -10,6 +10,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# COLORS
 export BLACK="\e[1;30m"
 export RED="\e[1;31m"
 export GREEN="\e[1;32m"
@@ -28,20 +29,23 @@ export PURPLE_underlined="\e[4;35m"
 export CYAN_underlined="\e[4;36m"
 export WHITE_underlined="\e[4;37m"
 
+# PS variables
 export PS1="$PURPLE_underlined\d$CLEAR $GREEN(\u@\H)\n$BLUE\w> $CLEAR"
 export PS2="$RED[*]Continue>"
+
+# Misc. settings
 export PATH=$PATH:/home/daemoneye/bin
 export LESS="-iMFXR"
 export GREP="-a"
 export EDITOR=vim
-export HISTCONTROL=erasedups
-export HISTSIZE=100000
-
 shopt -s cdspell
 
-if [ -f ~/.bash_aliases ]; then
-	~/.bash_aliases
-fi
+# History file configuration
+export HISTCONTROL=erasedups
+export HISTSIZE=100000
+export HISTTIMEFORMAT='%F %T '
+shopt -s histappend
+
 if [ -f ~/bin/networking.sh ]; then
 	~/bin/networking.sh
 fi
