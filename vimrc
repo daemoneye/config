@@ -49,3 +49,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'preservim/nerdtree.vim'
 Plugin 'dense-analysis/ale.vim'
 call vundle#end()
+
+let g:lightline = {
+	\'colorscheme':'molokai'
+	\}
