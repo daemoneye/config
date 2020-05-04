@@ -46,10 +46,6 @@ export HISTSIZE=100000
 export HISTTIMEFORMAT='%F %T '
 shopt -s histappend
 
-if [ -f ~/bin/networking.sh ]; then
-	~/bin/networking.sh
-fi
-
 extract () {
 	if [ -f $1 ] ; then
 		 case $1 in
@@ -83,17 +79,6 @@ mkcd() {
 	fi
 }
 
-alias largest="du -S | sort -nr | head -n 15"
-alias ll='ls -l'
-alias mv='mv -i'
-
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+if [ -f /home/daemoneye/.bash_aliases ]; then
+	source /home/daemoneye/.bash_aliases
 fi
